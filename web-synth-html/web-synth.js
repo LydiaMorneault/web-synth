@@ -9,9 +9,10 @@ function play(wave){
   }
 
 function start(){
-  osc.start();
-  osc.connect(context.destination);
   vol.connect(context.destination);
+  vol.gain.value = 0.5
+  osc.start();
+  osc.connect(vol);
   //TODO: ERROR WHEN RESTARTING
 }
 
