@@ -15,9 +15,13 @@ function App() {
       <div>FREQUENCY</div>
       <div>VOLUME</div>
       <div>START/STOP</div>
-      <button onClick={play("sine", 220)}>Sine</button>
-      <button onClick={play("triangle", 277)}>Triangle</button>
       </header>
+      
+      <body>
+        <button>
+          <image src="./sine.jpg" onClick={play("sine", 220)} alt="Sine"/>
+        </button>
+      </body>
     </div>
   );
 }

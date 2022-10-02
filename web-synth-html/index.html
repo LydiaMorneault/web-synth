@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="web-synth.css">
+    </head>
+    
+    <br>
+    <script src="web-synth.js"></script>
+
+    <div>
+        <body>
+
+            <image src="sine.jpg" onClick="play('sine', 220)" alt="Sine" />
+            <image src="sawtooth.jpg" onClick="play('sawtooth', 220)" alt="Sine" />
+            <image src="triangle.jpg" onClick="play('square', 220)" alt="Sine" />
+            <image src="square.jpg" onClick="play('triangle', 220)" alt="Sine" />
+
+            <label>
+                Frequency
+                <input type="range" min="20" max="20000" value="0.5" id="freqRange" step="1" oninput="" class="center"/>
+            </label>
+
+          </body>
+    </div>
+</html>
