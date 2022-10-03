@@ -1,5 +1,7 @@
 var playing = false;
 var scope;
+var ctx;
+
 
 function includeJs(jsFilePath) {
   var js = document.createElement("script");
@@ -30,12 +32,12 @@ function start() {
     vol.gain.value = document.getElementById('volRange').value;
     osc.start();
     osc.connect(vol);
-
-    var c = document.getElementById("oscCanvas");
-
-    var ctx = c.getContext("2d");
+    
+    ctx = document.getElementById("oscCanvas").getContext("2d");
     ctx.strokeStyle = 'green';
-    scope.animate(ctx);
+
+    var scopeHeight = ctx.canvas.height*vol.gain.value;
+    scope.animate(ctx,0,(ctx.canvas.height/2)-scopeHeight/2,ctx.canvas.width, scopeHeight);
  
   }
 }
@@ -60,8 +62,13 @@ function setFreq() {
 }
 
 function setVol() {
-  if (!playing) return;
-  vol.gain.setValueAtTime(document.getElementById('volRange').value, context.currentTime);
   var label = document.getElementById('volLabel');
   label.innerHTML = document.getElementById('volRange').value;
+  if (!playing) return;
+  vol.gain.setValueAtTime(document.getElementById('volRange').value, context.currentTime);
+  scope.stop();
+  
+  //adjust scope positioning based on volume
+  var scopeHeight = ctx.canvas.height*vol.gain.value;
+  scope.animate(ctx,0,(ctx.canvas.height/2)-scopeHeight/2,ctx.canvas.width, scopeHeight);
 }
