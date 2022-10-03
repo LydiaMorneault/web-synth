@@ -2,7 +2,7 @@ var playing = false;
 var scope;
 var ctx;
 
-
+// dependencies
 function includeJs(jsFilePath) {
   var js = document.createElement("script");
 
@@ -11,8 +11,9 @@ function includeJs(jsFilePath) {
 
   document.body.appendChild(js);
 }
-
 includeJs("https://cdn.jsdelivr.net/npm/oscilloscope@1.x");
+
+
 
 function start() {
 
@@ -32,20 +33,23 @@ function start() {
     vol.gain.value = document.getElementById('volRange').value;
     osc.start();
     osc.connect(vol);
-    
+
     ctx = document.getElementById("oscCanvas").getContext("2d");
     ctx.strokeStyle = 'green';
 
-    var scopeHeight = ctx.canvas.height*vol.gain.value;
-    scope.animate(ctx,0,(ctx.canvas.height/2)-scopeHeight/2,ctx.canvas.width, scopeHeight);
- 
+    // account for amplitude
+    var scopeHeight = ctx.canvas.height * vol.gain.value;
+
+    // draw on canvas
+    scope.animate(ctx, 0, (ctx.canvas.height / 2) - scopeHeight / 2, ctx.canvas.width, scopeHeight);
+
   }
 }
 
+// change wave type
 function play(wave) {
   osc.type = wave;
 }
-
 
 
 function stop() {
@@ -64,11 +68,12 @@ function setFreq() {
 function setVol() {
   var label = document.getElementById('volLabel');
   label.innerHTML = document.getElementById('volRange').value;
+  
   if (!playing) return;
   vol.gain.setValueAtTime(document.getElementById('volRange').value, context.currentTime);
   scope.stop();
-  
+
   //adjust scope positioning based on volume
-  var scopeHeight = ctx.canvas.height*vol.gain.value;
-  scope.animate(ctx,0,(ctx.canvas.height/2)-scopeHeight/2,ctx.canvas.width, scopeHeight);
+  var scopeHeight = ctx.canvas.height * vol.gain.value;
+  scope.animate(ctx, 0, (ctx.canvas.height / 2) - scopeHeight / 2, ctx.canvas.width, scopeHeight);
 }
